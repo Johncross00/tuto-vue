@@ -72,7 +72,8 @@ header {
         @click="deleteMovie(movie)">Supprimer</button></li>
   </ul>
 
-  <CheckBox label="Bonjour" />
+  <CheckBox label="Bonjour" @check="console.log('Coché')"
+  @uncheck="console.log('Décoché')"/>
 </template>
 
 <script setup>
