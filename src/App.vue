@@ -53,11 +53,13 @@ header {
   <button @click="increment">Augmenter</button>
   <hr>
   <button @click="count --">Diminuer</button>
+  <p>my phone is or are: <div v-html="phone"></div></p>
 </template>
 
 <script setup>
 import {ref} from 'vue'
 const name = "John"
+const phone = "<ul><li>iPhone</li><li>Samsung</li></ul>"
 
 const count = ref(0)
 
