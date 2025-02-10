@@ -47,6 +47,20 @@ header {
 </style> -->
 
 <template>
+  <Layout>
+    <template #header>
+      Header
+    </template>
+    <template #aside>
+      Aside
+    </template>
+    <template #main>
+      Main
+    </template>
+    <template #footer>
+      Footer
+    </template>
+  </Layout>
   <CustomButton>
     <Strong>KTM</Strong> for
   </CustomButton>
@@ -83,6 +97,7 @@ header {
 import { ref } from 'vue'
 import CheckBox from './Checkbox.vue'
 import CustomButton from './CustomButton.vue'
+import Layout from './Layout.vue'
 const name = "John"
 const phone = "<ul><li>iPhone</li><li>Samsung</li></ul>"
 
