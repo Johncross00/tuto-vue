@@ -1,4 +1,4 @@
-<script setup>
+<!-- <script setup>
 import HelloWorld from './components/HelloWorld.vue'
 import TheWelcome from './components/TheWelcome.vue'
 </script>
@@ -43,5 +43,19 @@ header {
     place-items: flex-start;
     flex-wrap: wrap;
   }
+}
+</style> -->
+
+<template>
+  <h1>Hello {{ name.toUpperCase() }}</h1>
+</template>
+
+<script setup>
+const name = "John"
+</script>
+
+<style>
+h1{
+  color: red;
 }
 </style>
