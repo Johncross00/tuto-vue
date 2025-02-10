@@ -48,33 +48,54 @@ header {
 
 <template>
   <h1>Hello {{ name.toUpperCase() }}</h1>
-  <div v-if="count > 5" >Bravo, vous avez appuiyé plus de {{ count-1 }} fois</div>
-  <h3>Vous avez appuyé <strong :style="{color: count > 10 ? 'red': 'yellow'}"> {{ count }} </strong> fois</h3>
+  <div v-if="count > 5">Bravo, vous avez appuiyé plus de {{ count - 1 }} fois</div>
+  <h3>Vous avez appuyé <strong :style="{ color: count > 10 ? 'red' : 'yellow' }"> {{ count }} </strong> fois</h3>
   <button @click="increment">Augmenter</button>
   <hr>
-  <button @click="count --">Diminuer</button>
-  <p>my phone is or are: <div v-html="phone"></div></p>
+  <button @click="count--">Diminuer</button>
+  <p>my phone is or are:
+  <div v-html="phone"></div>
+  </p>
+  <br>
+  <!-- <button @click="sortMovies">Réorganiser</button> -->
+  <p>I like movies like:
+  <ul>
+    <li v-for="movie in movies">{{ movie }} <button @click="deleteMovie(movie)">Supprimer</button></li>
+  </ul>
+  </p>
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 const name = "John"
 const phone = "<ul><li>iPhone</li><li>Samsung</li></ul>"
 
-const count = ref(0)
+const count = ref( 0 )
 
-const increment = (event) =>{
-  console.log(event)
-  count.value ++
+const increment = ( event ) =>
+{
+  console.log( event )
+  count.value++
 }
 
+const movies = ref( [
+  'AAA', 'BBB', 'CCCC'
+] )
+
+const deleteMovie = ( event ) => {
+  movies.value.splice( movies.value.indexOf( event ), 1 )
+}
+// const sortMovies = ( event ) => {
+//   movies.value.sort()
+// }
 </script>
 
 <style>
-h1{
+h1 {
   color: pink;
 }
-strong{
+
+strong {
   color: green;
 }
 </style>
