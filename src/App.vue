@@ -47,6 +47,9 @@ header {
 </style> -->
 
 <template>
+  <CustomButton>
+    <Strong>KTM</Strong> for
+  </CustomButton>
   <h1>Hello {{ name.toUpperCase() }}</h1>
   <div v-if="count > 5">Bravo, vous avez appuiyé plus de {{ count - 1 }} fois</div>
   <h3>Vous avez appuyé <strong :style="{ color: count > 10 ? 'red' : 'yellow' }"> {{ count }} </strong> fois</h3>
@@ -79,6 +82,7 @@ header {
 <script setup>
 import { ref } from 'vue'
 import CheckBox from './Checkbox.vue'
+import CustomButton from './CustomButton.vue'
 const name = "John"
 const phone = "<ul><li>iPhone</li><li>Samsung</li></ul>"
 
@@ -115,6 +119,6 @@ h1 {
 }
 
 strong {
-  color: green;
+  color: rgb(255, 157, 0);
 }
 </style>
