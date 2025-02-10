@@ -53,9 +53,9 @@ header {
   <button @click="increment">Augmenter</button>
   <hr>
   <button @click="count--">Diminuer</button>
-  <p>my phone is or are:
+  <p>my phone is or are:</p>
   <div v-html="phone"></div>
-  </p>
+
   <br>
   <hr>
   <fieldset>
@@ -66,15 +66,18 @@ header {
     </form>
   </fieldset>
   <button @click="sortMovies">Réorganiser</button>
-  <p>I like movies like:
+  <p>I like movies like: </p>
   <ul>
-    <li v-for="movie in movies" :key="movie" :style="{ color: 'red' }">{{ movie }} <button @click="deleteMovie(movie)">Supprimer</button></li>
+    <li v-for="movie in movies" :key="movie" :style="{ color: 'red' }">{{ movie }} <button
+        @click="deleteMovie(movie)">Supprimer</button></li>
   </ul>
-  </p>
+
+  <CheckBox label="Bonjour" />
 </template>
 
 <script setup>
 import { ref } from 'vue'
+import CheckBox from './Checkbox.vue'
 const name = "John"
 const phone = "<ul><li>iPhone</li><li>Samsung</li></ul>"
 
