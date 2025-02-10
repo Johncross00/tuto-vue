@@ -48,8 +48,11 @@ header {
 
 <template>
   <h1>Hello {{ name.toUpperCase() }}</h1>
-  <h3>Vous avez appuyé <strong>{{ count }}</strong> fois</h3>
-  <button @click="increment">Appuyer ici</button>
+  <div v-if="count > 5" >Bravo, vous avez appuiyé plus de {{ count-1 }} fois</div>
+  <h3>Vous avez appuyé <strong :style="{color: count > 10 ? 'red': 'yellow'}"> {{ count }} </strong> fois</h3>
+  <button @click="increment">Augmenter</button>
+  <hr>
+  <button @click="count --">Diminuer</button>
 </template>
 
 <script setup>
