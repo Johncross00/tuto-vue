@@ -48,17 +48,21 @@ header {
 
 <template>
   <h1>Hello {{ name.toUpperCase() }}</h1>
-  <!-- <h3>Vous avez appuyé <strong>{{ count }}</strong> fois</h3> -->
-  <h3>Compteur <strong>{{ count }}</strong></h3>
+  <h3>Vous avez appuyé <strong>{{ count }}</strong> fois</h3>
+  <button @click="increment">Appuyer ici</button>
 </template>
 
 <script setup>
 import {ref} from 'vue'
 const name = "John"
+
 const count = ref(0)
-setInterval(() => {
+
+const increment = (event) =>{
+  console.log(event)
   count.value ++
-}, 1000);
+}
+
 </script>
 
 <style>
