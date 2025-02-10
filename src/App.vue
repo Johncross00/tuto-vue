@@ -57,10 +57,18 @@ header {
   <div v-html="phone"></div>
   </p>
   <br>
-  <!-- <button @click="sortMovies">Réorganiser</button> -->
+  <hr>
+  <fieldset>
+    <legend>Ajouter un nouveau film</legend>
+    <form action="" @submit="addMovie">
+      <input type="text" v-model="newMovie"> {{ newMovie }}
+      <button @click="addMovie">Ajouter</button>
+    </form>
+  </fieldset>
+  <button @click="sortMovies">Réorganiser</button>
   <p>I like movies like:
   <ul>
-    <li v-for="movie in movies">{{ movie }} <button @click="deleteMovie(movie)">Supprimer</button></li>
+    <li v-for="movie in movies" :key="movie" :style="{ color: 'red' }">{{ movie }} <button @click="deleteMovie(movie)">Supprimer</button></li>
   </ul>
   </p>
 </template>
@@ -79,15 +87,22 @@ const increment = ( event ) =>
 }
 
 const movies = ref( [
-  'AAA', 'BBB', 'CCCC'
+  'Moko', 'Viuy', 'CCCC'
 ] )
 
 const deleteMovie = ( event ) => {
   movies.value.splice( movies.value.indexOf( event ), 1 )
 }
-// const sortMovies = ( event ) => {
-//   movies.value.sort()
-// }
+const sortMovies = ( event ) => {
+  movies.value.sort()
+}
+
+const newMovie = ref("")
+const addMovie = ( event ) => {
+  event.preventDefault()
+  movies.value.push( newMovie.value )
+  newMovie.value = ''
+}
 </script>
 
 <style>
