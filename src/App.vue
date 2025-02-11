@@ -47,8 +47,9 @@ header {
 </style> -->
 
 <template>
+  <ChangeTitle></ChangeTitle>
   <button @click="showTimer = !showTimer">Afficher/Masquer</button>
-  <Timer v-if="showTimer"></Timer>
+  <!-- <Timer v-if="showTimer"></Timer> -->
   <form action="" @submit.prevent="addTodo">
     <legend>Ajouter une tâche</legend>
     <fieldset role="group">
@@ -203,6 +204,7 @@ import CheckBox from './Checkbox.vue'
 import CustomButton from './CustomButton.vue'
 import Layout from './Layout.vue'
 import Timer from "./Timer.vue";
+import ChangeTitle from "./components/ChangeTitle.vue";
 
 const showTimer = ref( true )
 
