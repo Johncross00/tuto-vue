@@ -47,6 +47,44 @@ header {
 </style> -->
 
 <template>
+  <button @click="showTimer = !showTimer">Afficher/Masquer</button>
+  <Timer v-if="showTimer"></Timer>
+  <form action="" @submit.prevent="addTodo">
+    <legend>Ajouter une tâche</legend>
+    <fieldset role="group">
+      <input type="text" name="newTodo" id="newTodo" placeholder="Tâche à faire" v-model="newTodo"
+        @input="validateInput" required />
+      <button :disabled="!newTodo">Ajouter</button>
+    </fieldset>
+  </form>
+  <div v-if="todos.length === 0">Vous n'avez pas de tâches à faire 😊</div>
+  <div v-else>
+    <label for="hideCompleted">
+      <input type="checkbox" name="hideCompleted" id="hideCompleted" v-model="hideCompleted" />
+      Masquer les tâches complétées
+    </label>
+    <transition-group name="fade" tag="ul" class="todo-list">
+      <li v-for="todo in sortedTodos(false)" :key="todo.date" :class="{ completed: todo.completed }">
+        <label :for="'todo-' + todo.date">
+          <input type="checkbox" :name="'todo-' + todo.date" :id="'todo-' + todo.date" v-model="todo.completed"
+            @change="saveTodos" />
+          {{ todo.title }}
+        </label>
+        <button @click="deleteTodo(todo)">Supprimer</button>
+      </li>
+    </transition-group>
+    <h3>Tâches complétées</h3>
+    <transition-group name="fade" tag="ul" class="todo-list">
+      <li v-for="todo in sortedTodos(true)" :key="todo.date" :class="{ completed: todo.completed }">
+        <label :for="'todo-' + todo.date">
+          <input type="checkbox" :name="'todo-' + todo.date" :id="'todo-' + todo.date" v-model="todo.completed"
+            @change="saveTodos" />
+          {{ todo.title }}
+        </label>
+        <button @click="deleteTodo(todo)">Supprimer</button>
+      </li>
+    </transition-group>
+  </div>
   <Layout>
     <template #header>
       Header
@@ -89,15 +127,85 @@ header {
         @click="deleteMovie(movie)">Supprimer</button></li>
   </ul>
 
-  <CheckBox label="Bonjour" @check="console.log('Coché')"
-  @uncheck="console.log('Décoché')"/>
+  <CheckBox label="Bonjour" @check="console.log('Coché')" @uncheck="console.log('Décoché')" />
 </template>
 
 <script setup>
+import { watch, onMounted } from "vue";
+
+const newTodo = ref( "" );
+const hideCompleted = ref( false );
+const todos = ref( JSON.parse( localStorage.getItem( "todos" ) ) || [] );
+
+onMounted( () =>
+{
+  console.log( 'mounted' )
+  fetch( 'https://jsonplaceholder.typicode.com/todos' )
+    .then( r =>
+    {
+      console.log( 'Response', r )
+      return r.json()
+    } )
+    .then( v =>
+    {
+      console.log( 'Data', v )
+      todos.value = v.map( todo => ( { ...todo, date: todo.id } ) )
+    } )
+} )
+
+const validateInput = () =>
+{
+  newTodo.value = newTodo.value.replace( /\s/g, "" );
+};
+
+const addTodo = () =>
+{
+  todos.value.push( {
+    title: newTodo.value,
+    completed: false,
+    date: Date.now(),
+  } );
+  newTodo.value = "";
+  saveTodos();
+};
+
+const deleteTodo = ( todo ) =>
+{
+  todos.value = todos.value.filter( ( t ) => t !== todo );
+  saveTodos();
+};
+
+const saveTodos = () =>
+{
+  localStorage.setItem( "todos", JSON.stringify( todos.value ) );
+};
+
+const sortedTodos = ( completed ) =>
+{
+  const sortedTodos = todos.value
+    .slice()
+    .sort( ( a, b ) => ( a.completed > b.completed ? 1 : -1 ) );
+  if ( hideCompleted.value && completed )
+  {
+    return [];
+  }
+  return sortedTodos.filter( ( t ) => t.completed === completed );
+};
+
+watch( todos, saveTodos, { deep: true } );
+
+onMounted( () =>
+{
+  todos.value = JSON.parse( localStorage.getItem( "todos" ) ) || [];
+} );
 import { ref } from 'vue'
 import CheckBox from './Checkbox.vue'
 import CustomButton from './CustomButton.vue'
 import Layout from './Layout.vue'
+import Timer from "./Timer.vue";
+
+const showTimer = ref( true )
+
 const name = "John"
 const phone = "<ul><li>iPhone</li><li>Samsung</li></ul>"
 
@@ -113,15 +221,18 @@ const movies = ref( [
   'Moko', 'Viuy', 'CCCC'
 ] )
 
-const deleteMovie = ( event ) => {
+const deleteMovie = ( event ) =>
+{
   movies.value.splice( movies.value.indexOf( event ), 1 )
 }
-const sortMovies = ( event ) => {
+const sortMovies = ( event ) =>
+{
   movies.value.sort()
 }
 
-const newMovie = ref("")
-const addMovie = ( event ) => {
+const newMovie = ref( "" )
+const addMovie = ( event ) =>
+{
   event.preventDefault()
   movies.value.push( newMovie.value )
   newMovie.value = ''
