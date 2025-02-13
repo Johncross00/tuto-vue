@@ -47,8 +47,8 @@ header {
 </style> -->
 
 <template>
-  <ChangeTitle></ChangeTitle>
-  <button @click="showTimer = !showTimer">Afficher/Masquer</button>
+  <!-- <ChangeTitle></ChangeTitle>
+  <button @click="showTimer = !showTimer">Afficher/Masquer</button> -->
   <!-- <Timer v-if="showTimer"></Timer> -->
   <form action="" @submit.prevent="addTodo">
     <legend>Ajouter une tâche</legend>
@@ -86,7 +86,7 @@ header {
       </li>
     </transition-group>
   </div>
-  <Layout>
+  <!-- <Layout>
     <template #header>
       Header
     </template>
@@ -101,20 +101,20 @@ header {
     </template>
   </Layout>
   <CustomButton>
-    <Strong>KTM</Strong> for
-  </CustomButton>
-  <h1>Hello {{ name.toUpperCase() }}</h1>
+    <strong>KTM</strong> for
+  </CustomButton> -->
+  <!-- <h1>Hello {{ name.toUpperCase() }}</h1>
   <div v-if="count > 5">Bravo, vous avez appuiyé plus de {{ count - 1 }} fois</div>
   <h3>Vous avez appuyé <strong :style="{ color: count > 10 ? 'red' : 'yellow' }"> {{ count }} </strong> fois</h3>
   <button @click="increment">Augmenter</button>
   <hr>
   <button @click="count--">Diminuer</button>
   <p>my phone is or are:</p>
-  <div v-html="phone"></div>
+  <div v-html="phone"></div> -->
 
   <br>
   <hr>
-  <fieldset>
+  <!-- <fieldset>
     <legend>Ajouter un nouveau film</legend>
     <form action="" @submit="addMovie">
       <input type="text" v-model="newMovie"> {{ newMovie }}
@@ -122,17 +122,29 @@ header {
     </form>
   </fieldset>
   <button @click="sortMovies">Réorganiser</button>
-  <p>I like movies like: </p>
+  <p>I like movies like: </p> -->
   <ul>
     <li v-for="movie in movies" :key="movie" :style="{ color: 'red' }">{{ movie }} <button
         @click="deleteMovie(movie)">Supprimer</button></li>
   </ul>
+  <br>
+  <hr><br>
+  <button @click="toggleSpoiler">Afficher/Masquer</button>
+  <FadeSlideTransition>
+    <div v-if="showSpoiler" class="spoiler">KTM IS THE KING</div>
+    <div v-else>Voir 👀 </div>
+  </FadeSlideTransition>
 
-  <CheckBox label="Bonjour" @check="console.log('Coché')" @uncheck="console.log('Décoché')" />
+  <!-- <CheckBox label="Bonjour" @check="console.log('Coché')" @uncheck="console.log('Décoché')" /> -->
 </template>
 
 <script setup>
 import { watch, onMounted } from "vue";
+const showSpoiler = ref( false )
+const toggleSpoiler = () =>
+{
+  showSpoiler.value = !showSpoiler.value
+}
 
 const newTodo = ref( "" );
 const hideCompleted = ref( false );
@@ -141,7 +153,7 @@ const todos = ref( JSON.parse( localStorage.getItem( "todos" ) ) || [] );
 onMounted( () =>
 {
   console.log( 'mounted' )
-  fetch( 'https://jsonplaceholder.typicode.com/todos' )
+  fetch( 'https://jsonplaceholder.typicode.com/todos/?_limit=3' )
     .then( r =>
     {
       console.log( 'Response', r )
@@ -205,6 +217,7 @@ import CustomButton from './CustomButton.vue'
 import Layout from './Layout.vue'
 import Timer from "./Timer.vue";
 import ChangeTitle from "./components/ChangeTitle.vue";
+import FadeSlideTransition from "./FadeSlideTransition.vue";
 
 const showTimer = ref( true )
 
@@ -220,7 +233,6 @@ const increment = ( event ) =>
 }
 
 const movies = ref( [
-  'Moko', 'Viuy', 'CCCC'
 ] )
 
 const deleteMovie = ( event ) =>
@@ -249,4 +261,14 @@ h1 {
 strong {
   color: rgb(255, 157, 0);
 }
+.spoiler{
+  padding: 1rem;
+  border: solid 1px red;
+  /* transform: perspective(100px) rotateX(385deg) rotateY(10deg); */
+  /* transform: scale3d(1, 1, 1); */
+  /* transition-duration: 3s; */
+  /* transform: rotate(90deg ); */
+  transition: 1s;
+  }
+  
 </style>
