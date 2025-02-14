@@ -47,6 +47,11 @@ header {
 </style> -->
 
 <template>
+    <Header />
+  <div class="container">
+    <RouterView />
+  </div>
+
   <!-- <ChangeTitle></ChangeTitle>
   <button @click="showTimer = !showTimer">Afficher/Masquer</button> -->
   <!-- <Timer v-if="showTimer"></Timer> -->
@@ -160,7 +165,9 @@ header {
 
 <script setup>
 import { watch, onMounted } from "vue";
+import Header from "./components/Header.vue";
 const showSpoiler = ref( false )
+console.log("Header is", Header );
 const toggleSpoiler = () =>
 {
   showSpoiler.value = !showSpoiler.value
