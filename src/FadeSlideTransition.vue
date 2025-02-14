@@ -25,10 +25,10 @@ const showSpoiler = ref(false)
     transition: .5s ease-out;
     color: greenyellow;
   }
-  /* .v-enter-to{
+  .v-enter-to{
     opacity: 1;
     transform: translateX(0);
-  } */
+  }
 
 .fadeSlide-leave-to {
     opacity: 0;

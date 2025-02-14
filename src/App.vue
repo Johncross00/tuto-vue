@@ -47,9 +47,14 @@ header {
 </style> -->
 
 <template>
-    <Header />
+  <Header />
   <div class="container">
-    <RouterView />
+    <RouterView v-slot="{ Component }">
+      <FadeSlideTransition>
+        <component :is="Component"></component>
+
+      </FadeSlideTransition>
+    </RouterView>
   </div>
 
   <!-- <ChangeTitle></ChangeTitle>
@@ -167,7 +172,7 @@ header {
 import { watch, onMounted } from "vue";
 import Header from "./components/Header.vue";
 const showSpoiler = ref( false )
-console.log("Header is", Header );
+console.log( "Header is", Header );
 const toggleSpoiler = () =>
 {
   showSpoiler.value = !showSpoiler.value
@@ -317,10 +322,12 @@ strong {
   opacity: 1;
   transform: translateX(0);
 }
-.lorem{
+
+.lorem {
   margin: 50px;
 }
-.spoiler{
+
+.spoiler {
   color: v-bind(color);
   transition: .5s;
   transform: rotate(-10deg);
