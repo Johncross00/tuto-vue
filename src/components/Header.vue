@@ -2,7 +2,7 @@
     <header class="header">
         <RouterLink to="/" class="header__logo">Mon site</RouterLink>
         <nav>
-            <RouterLink to="/blog">Blog</RouterLink>
+            <RouterLink :to="{ name: 'Blog00' }">Blog</RouterLink>
             <RouterLink to="/about">About</RouterLink>
         </nav>
     </header>

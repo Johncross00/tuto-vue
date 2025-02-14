@@ -4,9 +4,9 @@ import Home from "./pages/Home.vue";
 import NotFound from "./pages/NotFound.vue";
 
 export const routes = [
-    { path: '/', component: Home },
-    { path: '/about', component: About },
-    { path: '/blog', component: Blog },
+    { path: '/', component: Home , name: 'Home00' },
+    { path: '/about', component: About , name: 'About00' },
+    { path: '/blog', component: Blog , name: 'Blog00' },
     // { path: '/:pathMatch(.*)*', redirect: '/' },
     { path: '/:pathMatch(.*)*', component: NotFound }
 
