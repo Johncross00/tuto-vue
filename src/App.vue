@@ -64,7 +64,7 @@ header {
       <input type="checkbox" name="hideCompleted" id="hideCompleted" v-model="hideCompleted" />
       Masquer les tâches complétées
     </label>
-    <transition-group name="fade" tag="ul" class="todo-list">
+    <TransitionGroup name="fade" tag="ul" class="list" mode="out-in" appear>
       <li v-for="todo in sortedTodos(false)" :key="todo.date" :class="{ completed: todo.completed }">
         <label :for="'todo-' + todo.date">
           <input type="checkbox" :name="'todo-' + todo.date" :id="'todo-' + todo.date" v-model="todo.completed"
@@ -73,9 +73,9 @@ header {
         </label>
         <button @click="deleteTodo(todo)">Supprimer</button>
       </li>
-    </transition-group>
+    </TransitionGroup>
     <h3>Tâches complétées</h3>
-    <transition-group name="fade" tag="ul" class="todo-list">
+    <TransitionGroup name="fade" tag="ul" class="todo-list" mode="out-in" appear>
       <li v-for="todo in sortedTodos(true)" :key="todo.date" :class="{ completed: todo.completed }">
         <label :for="'todo-' + todo.date">
           <input type="checkbox" :name="'todo-' + todo.date" :id="'todo-' + todo.date" v-model="todo.completed"
@@ -84,7 +84,7 @@ header {
         </label>
         <button @click="deleteTodo(todo)">Supprimer</button>
       </li>
-    </transition-group>
+    </TransitionGroup>
   </div>
   <!-- <Layout>
     <template #header>
@@ -261,14 +261,31 @@ h1 {
 strong {
   color: rgb(255, 157, 0);
 }
-.spoiler{
+
+.spoiler {
   padding: 1rem;
   border: solid 1px red;
-  /* transform: perspective(100px) rotateX(385deg) rotateY(10deg); */
-  /* transform: scale3d(1, 1, 1); */
-  /* transition-duration: 3s; */
-  /* transform: rotate(90deg ); */
-  transition: 1s;
+  transition: .5s;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateX(10px);
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: all .5s;
+}
+.fade-leave-active{
+
+  position: absolute;
   }
-  
+
+.fade-enter-to,
+.fade-leave-from {
+  opacity: 1;
+  transform: translateX(0);
+}
 </style>
