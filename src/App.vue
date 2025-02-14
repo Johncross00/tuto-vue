@@ -52,6 +52,26 @@ header {
   <!-- <Timer v-if="showTimer"></Timer> -->
   <form action="" @submit.prevent="addTodo">
     <legend>Ajouter une tâche</legend>
+    <!-- <dialog open>Wow</dialog> -->
+    <div class="lorem">
+      <select name="spoiler" id="spoiler" v-model="color">Changer la couleur
+        <option value="red">Red</option>
+        <option value="yellow">Yellow</option>
+        <option value="green">Green</option>
+        <option value="blue">Blue</option>
+      </select>
+      <p class="spoiler">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus, cupiditate nobis adipisci
+        numquam a cumque
+        soluta eos sapiente vel labore officiis aliquam, quaerat quia aspernatur nostrum incidunt! Inventore, odit
+        minus.
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Optio, libero quas autem dolores ipsum, asperiores
+        iste
+        dolor reprehenderit vitae quidem cumque tempora? Quis dolores deserunt praesentium doloremque beatae, deleniti
+        error. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis nihil, odio rem beatae ad illum
+        nostrum recusandae natus pariatur numquam est fugiat deserunt perspiciatis, consequatur optio earum placeat
+        distinctio voluptatem?</p>
+    </div>
+
     <fieldset role="group">
       <input type="text" name="newTodo" id="newTodo" placeholder="Tâche à faire" v-model="newTodo"
         @input="validateInput" required />
@@ -90,19 +110,19 @@ header {
     <template #header>
       Header
     </template>
-    <template #aside>
+<template #aside>
       Aside
     </template>
-    <template #main>
+<template #main>
       Main
     </template>
-    <template #footer>
+<template #footer>
       Footer
     </template>
-  </Layout>
-  <CustomButton>
-    <strong>KTM</strong> for
-  </CustomButton> -->
+</Layout>
+<CustomButton>
+  <strong>KTM</strong> for
+</CustomButton> -->
   <!-- <h1>Hello {{ name.toUpperCase() }}</h1>
   <div v-if="count > 5">Bravo, vous avez appuiyé plus de {{ count - 1 }} fois</div>
   <h3>Vous avez appuyé <strong :style="{ color: count > 10 ? 'red' : 'yellow' }"> {{ count }} </strong> fois</h3>
@@ -251,6 +271,7 @@ const addMovie = ( event ) =>
   movies.value.push( newMovie.value )
   newMovie.value = ''
 }
+const color = ref( "color" )
 </script>
 
 <style>
@@ -278,14 +299,23 @@ strong {
 .fade-leave-active {
   transition: all .5s;
 }
-.fade-leave-active{
+
+.fade-leave-active {
 
   position: absolute;
-  }
+}
 
 .fade-enter-to,
 .fade-leave-from {
   opacity: 1;
   transform: translateX(0);
+}
+.lorem{
+  margin: 50px;
+}
+.spoiler{
+  color: v-bind(color);
+  transition: .5s;
+  transform: rotate(-10deg);
 }
 </style>
